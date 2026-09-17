@@ -57,7 +57,11 @@ public class CartItem_Service {
 				.orElseThrow(() -> new ProductNotFoundException("Product not found"));
 
 		validateCartQuantity(cartItem.getQuantity(), product.getStockQuantity());
-
+		// Reduce stock capacity
+	    int newStock = product.getStockQuantity() - cartItem.getQuantity();
+	    product.setStockQuantity(newStock);
+	    productdao.updateProduct(product);
+	    
 		cartItem.setProduct(product);
 		cartItem.setCart(cart);
 

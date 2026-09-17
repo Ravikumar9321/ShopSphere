@@ -11,10 +11,13 @@ import com.shopsphere.DTO.ResponseStructure;
 import com.shopsphere.Entity.Category;
 import com.shopsphere.Service.Category_Service;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 
 @RestController
 @RequestMapping("/api/category")
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "Category", description = "Category related APIs")
 public class Category_Controller {
 	@Autowired
 	 private Category_Service service;

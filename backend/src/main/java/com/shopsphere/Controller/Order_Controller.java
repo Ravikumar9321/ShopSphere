@@ -19,9 +19,13 @@ import com.shopsphere.DTO.ResponseStructure;
 import com.shopsphere.Entity.Order;
 import com.shopsphere.Service.Order_Service;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/order")
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "Order", description = "Order related APIs")
+
 public class Order_Controller {
 
 	@Autowired

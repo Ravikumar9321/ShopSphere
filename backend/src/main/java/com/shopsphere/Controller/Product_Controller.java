@@ -19,9 +19,13 @@ import com.shopsphere.DTO.ResponseStructure;
 import com.shopsphere.Entity.Product;
 import com.shopsphere.Service.Product_Service;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/product")
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "Product", description = "Product related APIs")
+
 public class Product_Controller {
 	@Autowired
 	private Product_Service service;

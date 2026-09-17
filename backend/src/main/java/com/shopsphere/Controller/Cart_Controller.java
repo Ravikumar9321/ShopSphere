@@ -19,9 +19,13 @@ import com.shopsphere.DTO.ResponseStructure;
 import com.shopsphere.Entity.Cart;
 import com.shopsphere.Service.Cart_Service;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/cart")
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "Cart", description = "Cart related APIs")
+
 public class Cart_Controller {
 	@Autowired
 	private Cart_Service service;

@@ -1,16 +1,44 @@
 package com.shopsphere.Exception;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.shopsphere.DTO.ResponseStructure;
 
 @ControllerAdvice
 public class GlobelExceptionHandler extends ResponseEntityExceptionHandler {
+	
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(
+	        MethodArgumentNotValidException ex,
+	        HttpHeaders headers,
+	        HttpStatusCode status,
+	        WebRequest request) {
+
+	    Map<String, String> fieldErrors = new HashMap<>();
+	    ex.getBindingResult().getFieldErrors().forEach(error ->
+	        fieldErrors.put(error.getField(), error.getDefaultMessage())
+	    );
+
+	    ResponseStructure<Map<String, String>> response = new ResponseStructure<>();
+	    response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+	    response.setMessage("Validation failed. Please correct the highlighted fields.");
+	    response.setData(fieldErrors);
+
+	    return ResponseEntity.badRequest().body(response);
+	}
+
 
 	@ExceptionHandler(CategoryNotFoundException.class)
 	public ResponseEntity<ResponseStructure<String>> handleCategoryNotFound(CategoryNotFoundException e) {

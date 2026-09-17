@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.shopsphere.DAO.OrderItem_dao;
-import com.shopsphere.DAO.Order_dao;
 import com.shopsphere.DTO.ResponseStructure;
 import com.shopsphere.Entity.OrderItem;
 import com.shopsphere.Exception.InvalidRequestException;
@@ -20,8 +19,7 @@ import com.shopsphere.Exception.ResourceNotFoundException;
 @Service
 public class OrderItem_Service {
 
-	@Autowired
-	private Order_dao orderdao;
+	
 	@Autowired
 	private OrderItem_dao orderItemdao;
 

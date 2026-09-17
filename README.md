@@ -1,174 +1,135 @@
 # 🛒 ShopSphere – Full Stack E-Commerce Platform
 
-A scalable full-stack e-commerce application built with **Spring Boot 3.x** and **React 19**, featuring a stateless cart system, flexible order-payment workflow, and a modern cyber-neon UI.
+production‑ready full‑stack application for managing Organizers, Venues, Events, Attendees, and Registrations, built with Spring Boot + React.js, featuring secure JWT authentication, Swagger API documentation, and PostgreSQL database integration.
 
 ---
 
-## 📖 Project Overview
+## 🚀 Tech Stack
 
-ShopSphere is designed with a **backend-driven architecture** and a responsive **React SPA frontend**.
-The system supports a complete shopping lifecycle—from product discovery to order placement and payment tracking—while maintaining scalability and clean separation of concerns.
+### Backend
 
----
+- Java 21
+- Spring Boot 3.5.5
+- Spring Security (JWT Authentication)
+- Spring Data JPA / Hibernate
+- PostgreSQL
+- Swagger/OpenAPI 3.0
+- Maven
 
-## 🚀 Backend Highlights
+### Frontend
 
-* Engineered **10+ RESTful APIs** for:
+- React.js
+- Axios (with interceptors for JWT authentication)
+- React Router
+- useState & useEffect
+- Responsive CSS
 
-  * Product catalog
-  * Cart management
-  * Order processing
-  * Payment workflows
+### Tools
 
-* Designed **7 JPA entities**:
-
-  * Cart, CartItem, Category, Order, OrderItem, Payment, Product
-
-* Implemented **relational mappings**:
-
-  * Product ↔ Category
-  * Cart → CartItem → Product
-  * Order → OrderItem → Product
-  * Order → Payment
-
-* Built a **stateless session-based cart** using `sessionId`:
-
-  * Eliminates authentication dependency
-  * Enables lightweight user tracking
-
-* Developed a complete **order lifecycle pipeline**:
-
-  * Cart → Order conversion
-  * Item mapping & persistence
-  * Payment lifecycle management
-  * Order status tracking 
-
-* Enabled **order-first, pay-later model**:
-
-  * Users can place orders before payment
-  * Supports **pending payment tracking**
-
-* Ensured system reliability with:
-
-  * Transactional boundaries
-  * Cascading operations
-  * Global exception handling
-  * Input validation layers
+- Git & GitHub
+- Eclipse IDE
 
 ---
 
-## 🎨 Frontend Highlights
+## 🏗️ Architecture
 
-* Built a **4-page React SPA** using React Router v6:
+**Frontend (React)** ➝ **REST API (Spring Boot)** ➝ **PostgreSQL Database**
 
-  * Home → Products → Cart → Checkout → Order History
+Backend follows a clean layered architecture:
 
-* Implemented **session-based cart UI**:
-
-  * Users can retrieve cart using `sessionId`
-  * Dynamic cart updates
-
-* Developed complete **checkout experience**:
-
-  * Order placement before payment
-  * Payment handling with status updates
-
-* Added **Order History dashboard**:
-
-  * Displays all orders
-  * Highlights **pending payments**
-
-* Integrated **Axios** with:
-
-  * API communication
-  * Error handling
-  * User feedback
-
-* Applied performance optimizations:
-
-  * React Hooks (`useState`, `useEffect`)
-  * Memoization where required
-
-* Enhanced UX with:
-
-  * Real-time cart total calculation
-  * Pending payment badges
-  * Success confirmation modals
-
-* Implemented **product filtering by category**:
-
-  * Allows users to refine search
-  * Improves product discoverability
+- **Controller Layer** – Handles HTTP requests
+- **Service Layer** – Business logic
+- **Repository Layer** – Database interaction
 
 ---
 
-## 🛠 Tech Stack
+## ✨ Features
 
-**Backend**
+📦 Product Management – Browse, filter, and view product catalog.
 
-* Spring Boot
-* JPA / Hibernate
-* REST APIs
+-🛒 Cart System – Stateless cart using sessionId, supports add/remove items.
+-💳 Order & Payment Workflow – Place orders before payment, track pending payments.
+-📋 Order History Dashboard – View all orders with payment status.
+-🔍 Category Filtering – Refine product search by category.
+-🔒 Validation & Reliability – Transactional boundaries, exception handling, input validation.
+-📘 API Documentation – Swagger UI integration.
 
-**Frontend**
+## 🗄️ Database Design
 
-* React 19
-* React Router v7
-* Axios
-
-**Database**
-
-* PostgreSQL
-
-**Tools**
-
-* Eclipse
-* Git & GitHub
-
-**UI/UX**
-
-* CSS Grid & Flexbox
-* Glassmorphism Design
+**Entities:**
+-Product → id, name, description, price, stockQuantity, category
+-Category → id, name, products (One‑to‑Many)
+-Cart → id, sessionId, cartItems (One‑to‑Many)
+-CartItem → id, quantity, product (Many‑to‑One), cart (Many‑to‑One)
+-Order → id, date, status, orderItems (One‑to‑Many), payment (One‑to‑One)
+-OrderItem → id, quantity, product (Many‑to‑One), order (Many‑to‑One)
+-Payment → id, status, order (One‑to‑One)
 
 ---
 
-## ⚙️ Installation
+## 📁 Project Structure
 
-### 🔹 Backend Setup
+| Path          | Description                                                           |
+| ------------- | --------------------------------------------------------------------- |
+| `backend/`    | Spring Boot API                                                       |
+| `entity/`     | Product, Category, Cart, CartItem, Order, OrderItem, Payment entities |
+| `controller/` | REST Controllers                                                      |
+| `service/`    | Business Logic                                                        |
+| `repository/` | JPA Repositories                                                      |
+| `frontend/`   | React Application                                                     |
+| `management/` | ProductList, CartPage, Checkout, OrderHistory                         |
+| `doc/`        | Screenshots & Documentation                                           |
+| `README.md`   | This file                                                             |
 
-```bash
-git clone https://github.com/your-username/ShopSphere.git
+---
+
+## 🔗 REST API Endpoints
+
+### Product APIs
+
+| Method | Endpoint       | Description     |
+| ------ | -------------- | --------------- |
+| GET    | `/api/product` | Get all product |
+| POST   | `/api/product` | Create product  |
+
+### Cart APIs
+
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
+
+| GET | `/api/cart/sessionId/{sessionId}` | Get cart by sessionId |
+| POST | `/api/cartitem/{sessionId}` | Add item to cart |
+
+### Order APIs
+
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
+
+| POST | `/api/order/{sessionId}` | Place order from cart |
+| GET | `/api/order/history/{sessionId}` | Get order history |
+
+---
+
+## 🧪 How to Run Locally
+
+### 1️⃣ Configure PostgreSQL
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/shopsphereDB
+spring.datasource.username=postgres
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+server.port=8080
+
+
+ ###  2️⃣ Backend Setup (Eclipse)
+
+-->   Import the backend project into Eclipse IDE
+-->   Right‑click the project → Run As → Spring Boot App
+-->    Backend runs on: http://localhost:8080
+
+###  3️⃣ Frontend Setup
+-->    cd frontend
+-->   npm install
+-->   npm start
 ```
-
-* Import into Eclipse
-* Configure PostgreSQL in `application.properties`
-* Run Spring Boot application
-
-### 🔹 Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm start
-```
-
----
-
-## 📂 Application Flow
-
-1. **Home Page** → Start shopping
-2. **Products Page** → Browse & filter products by category
-3. **Cart Page** → View cart using sessionId
-4. **Checkout** → Place order before payment
-5. **Order History** → Track orders & pending payments
-
----
-
-## 🔮 Future Enhancements
-
-* JWT-based authentication & authorization
-* Admin dashboard for product & order management
-
-
----
-

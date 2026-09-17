@@ -19,9 +19,13 @@ import com.shopsphere.DTO.ResponseStructure;
 import com.shopsphere.Entity.Payment;
 import com.shopsphere.Service.Payment_Service;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/payment")
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "Payment", description = "Payment related APIs")
+
 public class Payment_Controller {
 	@Autowired
 	private Payment_Service service;

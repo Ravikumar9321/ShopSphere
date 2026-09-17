@@ -48,7 +48,6 @@ public class Product_dao {
 	}
 
 	public Product updateProduct(Product product) {
-		// TODO Auto-generated method stub
 		return productRepo.save(product);
 	}
 

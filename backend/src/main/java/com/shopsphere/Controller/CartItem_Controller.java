@@ -18,43 +18,52 @@ import com.shopsphere.DTO.ResponseStructure;
 import com.shopsphere.Entity.CartItem;
 import com.shopsphere.Service.CartItem_Service;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/cartitem")
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "CartItem", description = "CartItem related APIs")
+
 public class CartItem_Controller {
-	
-	  @Autowired
-	  private CartItem_Service service;
+
+	@Autowired
+	private CartItem_Service service;
+
+	// 1)add Cart
 	@PostMapping("/{sessionId}")
-	public ResponseEntity<ResponseStructure<CartItem>> AddCart(@PathVariable String sessionId,@RequestBody CartItem cartitem){
-		  return service.addCart(sessionId,cartitem);
+	public ResponseEntity<ResponseStructure<CartItem>> AddCart(@PathVariable String sessionId,
+			@RequestBody CartItem cartitem) {
+		return service.addCart(sessionId, cartitem);
 	}
-	
-	
-    //3)fetch all CartItem details
+
+	// 2)fetch all CartItem details
 	@GetMapping
 	public ResponseEntity<ResponseStructure<List<CartItem>>> fetchallCartItemDetails() {
 		return service.fetchallCartItem();
 	}
-	
-    //4)fetch  CartItem details by Id
+
+	// 3)fetch CartItem details by Id
 	@GetMapping("/{id}")
 	public ResponseEntity<ResponseStructure<CartItem>> fetchCartItemDetailsById(@PathVariable int id) {
 		return service.fetchCartItemById(id);
 	}
-	//5)update CartItem details
+
+	// 4)update CartItem details
 	@PutMapping
-	public ResponseEntity<ResponseStructure<CartItem>> updateCartItemDetails(@RequestBody CartItem cartItem){
+	public ResponseEntity<ResponseStructure<CartItem>> updateCartItemDetails(@RequestBody CartItem cartItem) {
 		return service.updateCartItem(cartItem);
 	}
-	//6)delete CartItem detail
+
+	// 5)delete CartItem detail
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ResponseStructure<String>> deleteCartItemDetails(@PathVariable int id){
+	public ResponseEntity<ResponseStructure<String>> deleteCartItemDetails(@PathVariable int id) {
 		return service.deleteCartItem(id);
 	}
-     //7)get cartItem by sessionId
+
+	// 6)get cartItem by sessionId
 	@GetMapping("/sessionId/{sessionId}")
-	public ResponseEntity<ResponseStructure<List<CartItem>>> getCartitemBysessionId(@PathVariable String sessionId){
+	public ResponseEntity<ResponseStructure<List<CartItem>>> getCartitemBysessionId(@PathVariable String sessionId) {
 		return service.getCartitemBysessionId(sessionId);
 	}
 

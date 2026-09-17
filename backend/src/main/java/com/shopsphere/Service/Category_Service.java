@@ -42,7 +42,7 @@ public class Category_Service {
 	public ResponseEntity<ResponseStructure<List<Category>>> saveAllCategory(List<Category> category) {
 		for (Category check : category) {
 			if (check == null)
-				throw new InvalidRequestException("check entered details" + check.getName());
+				throw new InvalidRequestException("check entered details");
 		}
 		List<Category> savedCategories = categorydao.saveAllCategory(category);
 		return buildResponse(HttpStatus.CREATED, savedCategories, "Created successfully");
